@@ -1,25 +1,21 @@
-const API = "https://YOUR_BACKEND_URL_HERE"; // ganti setelah deploy
+// Daftar username yang diizinkan
+const allowedUsers = ["admin", "user1", "user2"]; 
 
-document.getElementById("loginForm").addEventListener("submit", async function(e) {
+document.getElementById("loginForm").addEventListener("submit", function(e) {
     e.preventDefault();
 
-    const username = document.getElementById("username").value;
+    const inputUser = document.getElementById("username").value;
     const status = document.getElementById("loginStatus");
 
-    const req = await fetch(`${API}/login`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username })
-    });
-
-    const res = await req.json();
-
-    if (res.success) {
+    if (allowedUsers.includes(inputUser)) {
         status.innerText = "Login berhasil...";
+        status.style.color = "lime";
+
         setTimeout(() => {
-            window.location.href = "tools.html";
-        }, 800);
+            window.location.href = "tools.html"; // pindah halaman
+        }, 700);
     } else {
         status.innerText = "Username salah!";
+        status.style.color = "red";
     }
 });
